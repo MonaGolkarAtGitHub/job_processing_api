@@ -16,15 +16,13 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
-#
-#        entity_managers:
-#            default:
-#                metadata_cache_driver:
-#                    type: 'service'
-#                    id: doctrine.cache.memcached
-#                query_cache_driver:
-#                    type: 'service'
-#                    id: doctrine.cache.memcached
-#                result_cache_driver:
-#                    type: 'service'
-#                    id: doctrine.cache.memcached
+        metadata_cache_driver:
+            type: pool
+            pool: doctrine.metadata_cache_pool
+        query_cache_driver:
+            type: pool
+            pool: doctrine.query_cache_pool
+        result_cache_driver:
+            type: pool
+            pool: doctrine.result_cache_pool
+

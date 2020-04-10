@@ -24,4 +24,10 @@ framework:
             app.cache.jobs:
                 adapter: cache.adapter.memcached
                 public: false
-                default_lifetime: 60
+                default_lifetime: 300  # 5 minutes
+            doctrine.metadata_cache_pool:
+                adapter: cache.adapter.memcached
+            doctrine.query_cache_pool:
+                adapter: cache.adapter.memcached
+            doctrine.result_cache_pool:
+                adapter: cache.adapter.memcached

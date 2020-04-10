@@ -122,7 +122,7 @@ class JobController extends AbstractController
             return new JsonResponse(['status' => self::getJobStatusName(unserialize($jobCachedData))], Response::HTTP_OK);
         }
 
-        $job = $this->jobRepository->findOneBy(['id' => $id]);
+        $job = $this->jobRepository->findOneJobById($id);
         if (empty($job)) {
             return new JsonResponse('Data not found', Response::HTTP_NOT_FOUND);
         }
@@ -169,7 +169,8 @@ class JobController extends AbstractController
             return new JsonResponse('Missing mandatory header parameter', Response::HTTP_BAD_REQUEST);
         }
 
-        if (!empty($this->jobRepository->findBy(['processorId' => intval($headers->get('processor-id'))]))) {
+        if (!empty($this->jobRepository->findJobsByProcessorId(intval($headers->get('processor-id'))))) {
+
             return new JsonResponse('Processor is still processing another job', Response::HTTP_BAD_REQUEST);
         }
 
@@ -220,7 +221,7 @@ class JobController extends AbstractController
             return new JsonResponse('Missing mandatory parameters', Response::HTTP_BAD_REQUEST);
         }
 
-        $job = $this->jobRepository->findOneBy(['id' => $data['id']]);
+        $job = $this->jobRepository->findOneJobById($data['id']);
         if (empty($job)) {
             return new JsonResponse('Data not found', Response::HTTP_NOT_FOUND);
         }
